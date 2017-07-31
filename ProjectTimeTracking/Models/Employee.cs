@@ -26,6 +26,6 @@ namespace ProjectTimeTracking.Models
 
         public string EmployeePassword { get; set; }
        
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<TimeEntry> TimeEntries { get; set; }
     }
 }
