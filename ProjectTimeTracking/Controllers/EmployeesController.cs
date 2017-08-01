@@ -58,7 +58,7 @@ namespace ProjectTimeTracking.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,EmployeeFirstName,EmployeeLastName,KindOfEmployment,EmployeeUserName,EmployeePassword")] Employee employee)
+        public async Task<IActionResult> Create([Bind("EmployeeFirstName,EmployeeLastName,KindOfEmployment,EmployeeUserName,EmployeePassword")] Employee employee)
         {
             if (ModelState.IsValid)
             {
