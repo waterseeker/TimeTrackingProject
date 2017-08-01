@@ -22,7 +22,7 @@ namespace ProjectTimeTracking.Controllers
         // GET: TimeEntries
         public async Task<IActionResult> Index()
         {
-            var projectTimeTrackingContext = _context.TimeEntries.Include(t => t.Employee).Include(t => t.Project);
+            var projectTimeTrackingContext = _context.TimeEntries.Include(t => t.Employee).AsNoTracking().Include(t => t.Project).AsNoTracking();
             return View(await projectTimeTrackingContext.ToListAsync());
         }
 
@@ -72,23 +72,24 @@ namespace ProjectTimeTracking.Controllers
             return View(timeEntry);
         }
 
-        // GET: TimeEntries/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+         //GET: TimeEntries/Edit/5
+         public async Task<IActionResult> Edit(int? id)
+         {
+             if (id == null)
+             {
+                 return NotFound();
+             }
+        
+             var timeEntry = await _context.TimeEntries.SingleOrDefaultAsync(m => m.TimeEntryID == id);
+             if (timeEntry == null)
+             {
+                 return NotFound();
+             }
+             ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "EmployeeFirstName", timeEntry.EmployeeID);
+             ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectDescription", timeEntry.ProjectID);
+             return View(timeEntry);
+         }
 
-            var timeEntry = await _context.TimeEntries.SingleOrDefaultAsync(m => m.TimeEntryID == id);
-            if (timeEntry == null)
-            {
-                return NotFound();
-            }
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "EmployeeFirstName", timeEntry.EmployeeID);
-            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectDescription", timeEntry.ProjectID);
-            return View(timeEntry);
-        }
 
         // POST: TimeEntries/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -101,7 +102,7 @@ namespace ProjectTimeTracking.Controllers
             {
                 return NotFound();
             }
-
+        
             if (ModelState.IsValid)
             {
                 try

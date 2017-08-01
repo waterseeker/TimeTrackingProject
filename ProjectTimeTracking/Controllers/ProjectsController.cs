@@ -49,6 +49,7 @@ namespace ProjectTimeTracking.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
+            PopulateProjectsDropDownList();
             return View();
         }
 
@@ -65,6 +66,7 @@ namespace ProjectTimeTracking.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            PopulateProjectsDropDownList(project.ProjectID);
             return View(project);
         }
 
@@ -76,48 +78,61 @@ namespace ProjectTimeTracking.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects.SingleOrDefaultAsync(m => m.ProjectID == id);
+            var project = await _context.Projects
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.ProjectID == id);
             if (project == null)
             {
                 return NotFound();
             }
+            PopulateProjectsDropDownList(project.ProjectID);
             return View(project);
         }
 
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectID,ProjectName,ProjectDescription,CompletionTimeEstimate")] Project project)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != project.ProjectID)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var projectToUpdate = await _context.Projects
+                .SingleOrDefaultAsync(p => p.ProjectID == id);
+
+            if (await TryUpdateModelAsync<Project>(projectToUpdate,
+                "",
+                p => p.CompletionTimeEstimate, p => p.ProjectID, p => p.ProjectName))
             {
                 try
                 {
-                    _context.Update(project);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException /* ex */)
                 {
-                    if (!ProjectExists(project.ProjectID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                        "Try again, and if the problem persists, " +
+                        "see your system administrator.");
                 }
                 return RedirectToAction("Index");
             }
-            return View(project);
+            PopulateProjectsDropDownList(projectToUpdate.ProjectID);
+            return View(projectToUpdate);
         }
+
+        private void PopulateProjectsDropDownList(object selectedProject = null)
+        {
+            var projectsQuery = from p in _context.Projects
+                                   orderby p.ProjectName
+                                   select p;
+            ViewBag.ProjectID = new SelectList(projectsQuery.AsNoTracking(), "ProjectID", "Name", selectedProject);
+        }
+
 
         // GET: Projects/Delete/5
         public async Task<IActionResult> Delete(int? id)
