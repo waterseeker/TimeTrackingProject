@@ -12,5 +12,12 @@ namespace ProjectTimeTracking.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<TimeEntry> TimeEntries { get; set; }
         public DbSet<Employee> Employees { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Project>().ToTable("Project");
+            modelBuilder.Entity<TimeEntry>().ToTable("TimeEntry");
+            modelBuilder.Entity<Employee>().ToTable("Employee");
+        }
     }
 }
