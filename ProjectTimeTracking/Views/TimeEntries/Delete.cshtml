@@ -1,0 +1,47 @@
+@model ProjectTimeTracking.Models.TimeEntry
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TimeEntry</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="TimeEntryID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.DateWorked)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateWorked)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeWorked)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeWorked)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.EmployeeFirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Project)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.ProjectDescription)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

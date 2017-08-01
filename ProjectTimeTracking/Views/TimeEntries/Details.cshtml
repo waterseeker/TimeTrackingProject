@@ -1,0 +1,42 @@
+@model ProjectTimeTracking.Models.TimeEntry
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TimeEntry</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateWorked)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateWorked)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeWorked)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TimeWorked)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.EmployeeFirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Project)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Project.ProjectDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TimeEntryID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,54 @@
+@model ProjectTimeTracking.Models.TimeEntry
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>TimeEntry</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="ProjectID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ProjectID" class ="form-control" asp-items="ViewBag.ProjectID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EmployeeID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="EmployeeID" class ="form-control" asp-items="ViewBag.EmployeeID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateWorked" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DateWorked" class="form-control" />
+                <span asp-validation-for="DateWorked" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TimeWorked" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TimeWorked" class="form-control" />
+                <span asp-validation-for="TimeWorked" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
