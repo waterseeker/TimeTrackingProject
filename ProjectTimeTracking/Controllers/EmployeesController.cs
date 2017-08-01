@@ -34,7 +34,11 @@ namespace ProjectTimeTracking.Controllers
             }
 
             var employee = await _context.Employees
+                .Include(e => e.TimeEntries)
+                    .ThenInclude(e => e.Project)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
+
             if (employee == null)
             {
                 return NotFound();
