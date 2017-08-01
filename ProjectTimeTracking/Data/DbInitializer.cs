@@ -3,7 +3,7 @@ using ProjectTimeTracking.Models;
 using System;
 using System.Linq;
 
-namespace ContosoUniversity.Data
+namespace ProjectTimeTracking.Data
 {
     public static class DbInitializer
     {

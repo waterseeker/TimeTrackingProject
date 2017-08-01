@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using ProjectTimeTracking.Data;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace ProjectTimeTracking
 {
     public class Startup
