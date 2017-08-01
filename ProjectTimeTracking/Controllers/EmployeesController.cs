@@ -96,42 +96,38 @@ namespace ProjectTimeTracking.Controllers
         }
 
         // POST: Employees/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,EmployeeFirstName,EmployeeLastName,KindOfEmployment,EmployeeUserName,EmployeePassword")] Employee employee)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != employee.ID)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var employeeToUpdate = await _context.Employees.SingleOrDefaultAsync(e => e.ID == id);
+            if (await TryUpdateModelAsync<Employee>(
+                employeeToUpdate,
+                "",
+                e => e.EmployeeFirstName, e => e.EmployeeLastName, e => e.KindOfEmployment, e => e.EmployeeUserName, e => e.EmployeePassword))
             {
                 try
                 {
-                    _context.Update(employee);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException /* ex */)
                 {
-                    if (!EmployeeExists(employee.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                        "Try again, and if the problem persists, " +
+                        "see your system administrator.");
                 }
-                return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(employeeToUpdate);
         }
 
         // GET: Employees/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
@@ -139,10 +135,18 @@ namespace ProjectTimeTracking.Controllers
             }
 
             var employee = await _context.Employees
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (employee == null)
             {
                 return NotFound();
+            }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] =
+                    "Delete failed. Try again, and if the problem persists " +
+                    "see your system administrator.";
             }
 
             return View(employee);
@@ -153,15 +157,25 @@ namespace ProjectTimeTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+            var employee = await _context.Employees
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.ID == id);
+            if (employee == null)
+            {
+                return RedirectToAction("Index");
+            }
 
-        private bool EmployeeExists(int id)
-        {
-            return _context.Employees.Any(e => e.ID == id);
+            try
+            {
+                _context.Employees.Remove(employee);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+            }
         }
     }
 }
