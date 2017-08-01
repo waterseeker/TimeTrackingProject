@@ -1,7 +1,30 @@
-﻿@{
-    ViewData["Title"] = "About";
-}
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
+﻿@model IEnumerable<ProjectTimeTracking.Models.ProjectViewModels.EmploymentTypeGroup>
 
-<p>Use this area to provide additional information.</p>
+@{
+    ViewData["Title"] = "Employment Type Statistics";
+}
+
+<h2>Employment Type Statistics</h2>
+
+<table>
+    <tr>
+        <th>
+            Employment
+        </th>
+        <th>
+            Employees
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KindOfEmployment)
+            </td>
+            <td>
+                @item.EmployeeCount
+            </td>
+        </tr>
+    }
+</table>
