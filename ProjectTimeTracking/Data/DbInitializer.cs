@@ -19,14 +19,14 @@ namespace ProjectTimeTracking.Data
 
             var employees = new Employee[]
             {
-            new Employee{EmployeeFirstName="Carson",EmployeeLastName="Alexander",KindOfEmployment=[0]},
-            new Employee{EmployeeFirstName="Meredith",EmployeeLastName="Alonso",KindOfEmployment=[1]},
-            new Employee{EmployeeFirstName="Arturo",EmployeeLastName="Anand",KindOfEmployment=[2]},
-            new Employee{EmployeeFirstName="Gytis",EmployeeLastName="Barzdukas",KindOfEmployment=[3]},
-            new Employee{EmployeeFirstName="Yan",EmployeeLastName="Li",KindOfEmployment=[4]},
-            new Employee{EmployeeFirstName="Peggy",EmployeeLastName="Justice",KindOfEmployment=[1]},
-            new Employee{EmployeeFirstName="Laura",EmployeeLastName="Norman",KindOfEmployment=[2]},
-            new Employee{EmployeeFirstName="Wayne",EmployeeLastName="Burris",KindOfEmployment=[3]}
+            new Employee{EmployeeFirstName="Carson",EmployeeLastName="Alexander",KindOfEmployment=EmploymentType.FullTime},
+            new Employee{EmployeeFirstName="Meredith",EmployeeLastName="Alonso",KindOfEmployment=EmploymentType.PartTime},
+            new Employee{EmployeeFirstName="Arturo",EmployeeLastName="Anand",KindOfEmployment=EmploymentType.Intern},
+            new Employee{EmployeeFirstName="Gytis",EmployeeLastName="Barzdukas",KindOfEmployment=EmploymentType.Intern},
+            new Employee{EmployeeFirstName="Yan",EmployeeLastName="Li",KindOfEmployment=EmploymentType.Contract},
+            new Employee{EmployeeFirstName="Peggy",EmployeeLastName="Justice",KindOfEmployment=EmploymentType.PartTime},
+            new Employee{EmployeeFirstName="Laura",EmployeeLastName="Norman",KindOfEmployment=EmploymentType.FullTime},
+            new Employee{EmployeeFirstName="Wayne",EmployeeLastName="Burris",KindOfEmployment=EmploymentType.Contract}
             };
             foreach (Employee e in employees)
             {
