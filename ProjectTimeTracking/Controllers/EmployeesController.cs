@@ -16,18 +16,33 @@ namespace ProjectTimeTracking.Controllers
 
         public EmployeesController(ProjectTimeTrackingContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(
+                        string sortOrder,
+                        string currentFilter,
+                        string searchString,
+                        int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["EmployeeLastNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["KindOfEmploymentSortParm"] = sortOrder == "Employment Type" ? "employment_desc" : "Employment Type";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["CurrentFilter"] = searchString;
 
             var employees = from e in _context.Employees
-                           select e;
+                            select e;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -47,7 +62,8 @@ namespace ProjectTimeTracking.Controllers
                     employees = employees.OrderByDescending(e => e.EmployeeFirstName);
                     break;
             }
-            return View(await employees.AsNoTracking().ToListAsync());
+            int pageSize = 10;
+            return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), page ?? 1, pageSize));
         }
 
         // GET: Employees/Details/5

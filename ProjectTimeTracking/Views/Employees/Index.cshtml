@@ -1,4 +1,4 @@
-@model IEnumerable<ProjectTimeTracking.Models.Employee>
+@model PaginatedList<ProjectTimeTracking.Models.Employee>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,20 +24,15 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmployeeLastNameSortParm"]">@Html.DisplayNameFor(model => model.EmployeeFirstName)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmployeeLastNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">First Name</a>
+
             </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLastName)
+                    Last Name
                 </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["KindOfEmploymentSortParm"]">@Html.DisplayNameFor(model => model.KindOfEmployment)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["KindOfEmploymentSortParm"]"asp-route-currentFilter="@ViewData["CurrentFilter"]">Employment Type</a>
             </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeUserName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeePassword)
-                </th>
             <th></th>
         </tr>
     </thead>
@@ -68,3 +63,23 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
