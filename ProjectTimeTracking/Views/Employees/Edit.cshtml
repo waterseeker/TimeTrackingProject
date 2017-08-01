@@ -1,3 +1,4 @@
+@using ProjectTimeTracking.Models
 @model ProjectTimeTracking.Models.Employee
 
 @{
@@ -29,7 +30,7 @@
         <div class="form-group">
             <label asp-for="KindOfEmployment" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="KindOfEmployment" class="form-control"></select>
+                <select asp-for="KindOfEmployment" asp-items="Html.GetEnumSelectList<EmploymentType>()"> class="form-control"></select>
                 <span asp-validation-for="KindOfEmployment" class="text-danger"></span>
             </div>
         </div>
