@@ -16,7 +16,7 @@ namespace ProjectTimeTracking.Models
     {
         public int ID { get; set; }
 
-        public string EmployeeFirstMidName { get; set; }
+        public string EmployeeFirstName { get; set; }
 
         public string EmployeeLastName { get; set; }
 

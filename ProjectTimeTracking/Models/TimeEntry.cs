@@ -11,7 +11,7 @@ namespace ProjectTimeTracking.Models
         public int ProjectID { get; set; }
         public int EmployeeID { get; set; }
         public DateTime DateWorked { get; set; }
-        public decimal TimeWorked { get; set; }
+        public double TimeWorked { get; set; }
         public Project Project { get; set; }
         public Employee Employee { get; set; }
     }
