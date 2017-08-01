@@ -20,9 +20,34 @@ namespace ProjectTimeTracking.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            return View(await _context.Employees.ToListAsync());
+            ViewData["EmployeeLastNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["KindOfEmploymentSortParm"] = sortOrder == "Employment Type" ? "employment_desc" : "Employment Type";
+            ViewData["CurrentFilter"] = searchString;
+
+            var employees = from e in _context.Employees
+                           select e;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                employees = employees.Where(e => e.EmployeeLastName.Contains(searchString)
+                                       || e.EmployeeFirstName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(e => e.EmployeeLastName);
+                    break;
+                case "employment_desc":
+                    employees = employees.OrderBy(e => e.KindOfEmployment);
+                    break;
+                default:
+                    employees = employees.OrderByDescending(e => e.EmployeeFirstName);
+                    break;
+            }
+            return View(await employees.AsNoTracking().ToListAsync());
         }
 
         // GET: Employees/Details/5
