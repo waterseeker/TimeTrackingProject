@@ -37,7 +37,7 @@ namespace ProjectTimeTracking.Controllers
             var timeEntry = await _context.TimeEntries
                 .Include(t => t.Employee)
                 .Include(t => t.Project)
-                .SingleOrDefaultAsync(m => m.TimeEntryID == id);
+                .SingleOrDefaultAsync(t => t.TimeEntryID == id);
             if (timeEntry == null)
             {
                 return NotFound();
@@ -59,7 +59,7 @@ namespace ProjectTimeTracking.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TimeEntryID,ProjectID,EmployeeID,DateWorked,TimeWorked")] TimeEntry timeEntry)
+        public async Task<IActionResult> Create([Bind("DateWorked,TimeWorked")] TimeEntry timeEntry)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +67,8 @@ namespace ProjectTimeTracking.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "EmployeeFirstName", timeEntry.EmployeeID);
-            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectDescription", timeEntry.ProjectID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeFirstName", "EmployeeFirstName", timeEntry.EmployeeID);
+            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectName", "ProjectName", timeEntry.ProjectID);
             return View(timeEntry);
         }
 
@@ -80,7 +80,7 @@ namespace ProjectTimeTracking.Controllers
                  return NotFound();
              }
         
-             var timeEntry = await _context.TimeEntries.SingleOrDefaultAsync(m => m.TimeEntryID == id);
+             var timeEntry = await _context.TimeEntries.SingleOrDefaultAsync(t => t.TimeEntryID == id);
              if (timeEntry == null)
              {
                  return NotFound();
@@ -139,7 +139,7 @@ namespace ProjectTimeTracking.Controllers
             var timeEntry = await _context.TimeEntries
                 .Include(t => t.Employee)
                 .Include(t => t.Project)
-                .SingleOrDefaultAsync(m => m.TimeEntryID == id);
+                .SingleOrDefaultAsync(t => t.TimeEntryID == id);
             if (timeEntry == null)
             {
                 return NotFound();
@@ -153,7 +153,7 @@ namespace ProjectTimeTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var timeEntry = await _context.TimeEntries.SingleOrDefaultAsync(m => m.TimeEntryID == id);
+            var timeEntry = await _context.TimeEntries.SingleOrDefaultAsync(t => t.TimeEntryID == id);
             _context.TimeEntries.Remove(timeEntry);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -161,7 +161,7 @@ namespace ProjectTimeTracking.Controllers
 
         private bool TimeEntryExists(int id)
         {
-            return _context.TimeEntries.Any(e => e.TimeEntryID == id);
+            return _context.TimeEntries.Any(t => t.TimeEntryID == id);
         }
     }
 }
