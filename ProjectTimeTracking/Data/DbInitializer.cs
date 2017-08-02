@@ -36,9 +36,9 @@ namespace ProjectTimeTracking.Data
 
             var projects = new Project[]
             {
-            new Project{ProjectID=1,ProjectName="ProjectTimeTracking",ProjectDescription="Making an app that can track time put in by employees on projects by employee and by project."},
-            new Project{ProjectID=2,ProjectName="TeamMorale",ProjectDescription="The global initiative to improve team morale through chocolate."},
-            new Project{ProjectID=3,ProjectName="HiringWayne",ProjectDescription="Hey, let's hire Wayne!"},
+            new Project{ProjectName="ProjectTimeTracking",ProjectDescription="Making an app that can track time put in by employees on projects by employee and by project."},
+            new Project{ProjectName="TeamMorale",ProjectDescription="The global initiative to improve team morale through chocolate."},
+            new Project{ProjectName="HiringWayne",ProjectDescription="Hey, let's hire Wayne!"},
 
             };
             foreach (Project p in projects)

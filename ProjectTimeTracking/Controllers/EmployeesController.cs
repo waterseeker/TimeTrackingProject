@@ -82,7 +82,7 @@ namespace ProjectTimeTracking.Controllers
                 .Include(e => e.TimeEntries)
                     .ThenInclude(e => e.Project)
                 .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.EmployeeID == id);
 
             if (employee == null)
             {
@@ -132,7 +132,7 @@ namespace ProjectTimeTracking.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.SingleOrDefaultAsync(m => m.ID == id);
+            var employee = await _context.Employees.SingleOrDefaultAsync(m => m.EmployeeID == id);
             if (employee == null)
             {
                 return NotFound();
@@ -149,7 +149,7 @@ namespace ProjectTimeTracking.Controllers
             {
                 return NotFound();
             }
-            var employeeToUpdate = await _context.Employees.SingleOrDefaultAsync(e => e.ID == id);
+            var employeeToUpdate = await _context.Employees.SingleOrDefaultAsync(e => e.EmployeeID == id);
             if (await TryUpdateModelAsync<Employee>(
                 employeeToUpdate,
                 "",
@@ -181,7 +181,7 @@ namespace ProjectTimeTracking.Controllers
 
             var employee = await _context.Employees
                 .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.EmployeeID == id);
             if (employee == null)
             {
                 return NotFound();
@@ -204,7 +204,7 @@ namespace ProjectTimeTracking.Controllers
         {
             var employee = await _context.Employees
                 .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.EmployeeID == id);
             if (employee == null)
             {
                 return RedirectToAction("Index");

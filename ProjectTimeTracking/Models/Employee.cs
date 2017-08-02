@@ -17,7 +17,7 @@ namespace ProjectTimeTracking.Models
 
     public class Employee
     {
-        public int ID { get; set; }
+        public int EmployeeID { get; set; }
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
         [RegularExpression(@"^[a-zA-Z]+[a-zA-Z''-'\s]*$")]
         [Required(ErrorMessage ="Please enter a last name.")]
