@@ -27,8 +27,9 @@ namespace ProjectTimeTracking.Controllers
                         int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["EmployeeLastNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["EmployeeLastNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "last_name" : "";
             ViewData["KindOfEmploymentSortParm"] = sortOrder == "Employment Type" ? "employment_desc" : "Employment Type";
+            ViewData["EmployeeFirstNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "first_name" : "";
 
             if (searchString != null)
             {
@@ -52,8 +53,11 @@ namespace ProjectTimeTracking.Controllers
 
             switch (sortOrder)
             {
-                case "name_desc":
-                    employees = employees.OrderByDescending(e => e.EmployeeLastName);
+                case "last_name":
+                    employees = employees.OrderBy(e => e.EmployeeLastName);
+                    break;
+                case "first_name":
+                    employees = employees.OrderBy(e => e.EmployeeFirstName);
                     break;
                 case "employment_desc":
                     employees = employees.OrderBy(e => e.KindOfEmployment);

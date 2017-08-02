@@ -24,12 +24,11 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmployeeLastNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">First Name</a>
-
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmployeeLastNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
             </th>
-                <th>
-                    Last Name
-                </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmployeeFirstNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">First Name</a>
+            </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["KindOfEmploymentSortParm"]"asp-route-currentFilter="@ViewData["CurrentFilter"]">Employment Type</a>
             </th>
@@ -40,19 +39,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeFirstName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.EmployeeLastName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.EmployeeFirstName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.KindOfEmployment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeUserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeePassword)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
