@@ -13,26 +13,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProjectID)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ProjectNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Project Name</a>
             </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProjectName)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ProjectDescription)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CompletionTimeEstimate)
-                </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CompletionTimeEstimateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Completion Time Estimate</a>
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProjectName)
             </td>

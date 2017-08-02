@@ -20,14 +20,51 @@ namespace ProjectTimeTracking.Controllers
         }
 
         // GET: Projects
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+                        string sortOrder,
+                        string currentFilter,
+                        string searchString,
+                        int? page)
         {
-            var projects = _context.Projects
-                .Include(p => p.TimeEntries)
-                .AsNoTracking();
-            return View(await projects.ToListAsync());
-        }
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["ProjectNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "project_name" : "";
+            ViewData["CompletionTimeEstimateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "completion_time" : "";
 
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var projects = from p in _context.Projects
+                            select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                projects = projects.Where(p => p.ProjectName.Contains(searchString)
+                                       || p.ProjectDescription.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "project_name":
+                    projects = projects.OrderBy(p => p.ProjectName);
+                    break;
+                case "completion_time":
+                    projects = projects.OrderBy(p => p.CompletionTimeEstimate);
+                    break;
+                default:
+                    projects = projects.OrderByDescending(p => p.ProjectName);
+                    break;
+            }
+            int pageSize = 10;
+            return View(await PaginatedList<Project>.CreateAsync(projects.AsNoTracking(), page ?? 1, pageSize));
+        }
         // GET: Projects/Details/5
         public async Task<IActionResult> Details(int? id)
         {
