@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.TimeWorked)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Employee.EmployeeFirstName)
+                @Html.DisplayFor(modelItem => item.Employee.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Project.ProjectDescription)
+                @Html.DisplayFor(modelItem => item.Project.ProjectName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TimeEntryID">Edit</a> |

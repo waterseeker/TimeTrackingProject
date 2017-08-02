@@ -49,8 +49,8 @@ namespace ProjectTimeTracking.Controllers
         // GET: TimeEntries/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "EmployeeFirstName");
-            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectDescription");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeFirstName", "EmployeeFirstName");
+            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectName", "ProjectName");
             return View();
         }
 
@@ -85,8 +85,8 @@ namespace ProjectTimeTracking.Controllers
              {
                  return NotFound();
              }
-             ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "EmployeeFirstName", timeEntry.EmployeeID);
-             ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectDescription", timeEntry.ProjectID);
+             ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeFirstName", "EmployeeFirstName", timeEntry.EmployeeID);
+             ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectName", "ProjectName", timeEntry.ProjectID);
              return View(timeEntry);
          }
 
