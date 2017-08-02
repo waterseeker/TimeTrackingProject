@@ -1,4 +1,4 @@
-@model IEnumerable<ProjectTimeTracking.Models.Project>
+@model PaginatedList<ProjectTimeTracking.Models.Project>
 
 @{
     ViewData["Title"] = "Projects";
@@ -9,15 +9,26 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ProjectNameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Project Name</a>
             </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProjectDescription)
-                </th>
+            <th>
+                Project Description
+            </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["CompletionTimeEstimateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Completion Time Estimate</a>
             </th>
@@ -45,3 +56,23 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
