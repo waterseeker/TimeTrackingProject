@@ -19,12 +19,12 @@ namespace ProjectTimeTracking.Models
     {
         public int ID { get; set; }
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        [RegularExpression(@"^[a-zA-Z]+[a-zA-Z''-'\s]*$")]
         [Required(ErrorMessage ="Please enter a last name.")]
         [Display(Name = "First Name")]
         public string EmployeeFirstName { get; set; }
         [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        [RegularExpression(@"^[a-zA-Z]+[a-zA-Z''-'\s]*$")]
         [Display(Name = "Last Name")]
         public string EmployeeLastName { get; set; }
         [EnumDataType(typeof(EmploymentType))]

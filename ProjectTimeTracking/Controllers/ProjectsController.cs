@@ -97,12 +97,12 @@ namespace ProjectTimeTracking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProjectID,ProjectName,ProjectDescription,CompletionTimeEstimate")] Project project)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    _context.Add(project);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             PopulateProjectsDropDownList(project.ProjectID);
             return View(project);
         }
