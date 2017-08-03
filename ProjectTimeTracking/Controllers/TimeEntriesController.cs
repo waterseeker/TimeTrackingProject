@@ -96,7 +96,7 @@ namespace ProjectTimeTracking.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectID,EmployeeID,DateWorked,TimeWorked")] TimeEntry timeEntry)
+        public async Task<IActionResult> Edit(int id, [Bind("TimeEntryID,ProjectID,EmployeeID,DateWorked,TimeWorked")] TimeEntry timeEntry)
         {
             if (id != timeEntry.TimeEntryID)
             {
