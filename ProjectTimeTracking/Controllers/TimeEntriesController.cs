@@ -123,7 +123,7 @@ namespace ProjectTimeTracking.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "EmployeeFirstName", timeEntry.EmployeeID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeFirstName", timeEntry.EmployeeID);
             ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectDescription", timeEntry.ProjectID);
             return View(timeEntry);
         }
