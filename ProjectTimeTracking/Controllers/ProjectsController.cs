@@ -143,7 +143,7 @@ namespace ProjectTimeTracking.Controllers
 
             if (await TryUpdateModelAsync<Project>(projectToUpdate,
                 "",
-                p => p.CompletionTimeEstimate, p => p.ProjectID, p => p.ProjectName))
+                p => p.CompletionTimeEstimate, p => p.ProjectID, p => p.ProjectName, p => p.ProjectDescription))
             {
                 try
                 {
