@@ -15,7 +15,7 @@ namespace ProjectTimeTracking.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage ="When was this work done?")]
         public DateTime DateWorked { get; set; }
-        [Required(ErrorMessage ="Please enter the amount of time spend on this project during this work session")]
+        [Required(ErrorMessage ="Please enter the amount of time spent on this project during this work session")]
         public double TimeWorked { get; set; }
         [Required(ErrorMessage ="What project was this for?")]
         public Project Project{ get; set; }
