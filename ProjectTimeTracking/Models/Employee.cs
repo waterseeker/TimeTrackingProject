@@ -39,7 +39,7 @@ namespace ProjectTimeTracking.Models
         {
             get
             {
-                return EmployeeLastName + ", " + EmployeeFirstName;
+                return EmployeeFirstName + " " + EmployeeLastName;
             }
         }
 
@@ -49,11 +49,14 @@ namespace ProjectTimeTracking.Models
 
     public enum EmploymentType
     {
-        [Display(Name = "FullTime")]
+        [Description("Full Time")]
+        [Display(Name = "Full Time")]
         FullTime,
         [Description("Part Time")]
+        [Display(Name = "Part Time")]
         PartTime,
         [Description("Contract")]
+        [Display(Name = "Contract")]
         Contract,
         [Description("Intern")]
         Intern

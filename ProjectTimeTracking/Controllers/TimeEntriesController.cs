@@ -67,8 +67,8 @@ namespace ProjectTimeTracking.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeFirstName", "EmployeeFirstName", timeEntry.EmployeeID);
-            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectName", "ProjectName", timeEntry.ProjectID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeFirstName", timeEntry.EmployeeID);
+            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectName", timeEntry.ProjectID);
             return View(timeEntry);
         }
 
@@ -85,8 +85,8 @@ namespace ProjectTimeTracking.Controllers
              {
                  return NotFound();
              }
-             ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeFirstName", "EmployeeFirstName", timeEntry.EmployeeID);
-             ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectName", "ProjectName", timeEntry.ProjectID);
+             ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeFirstName", timeEntry.EmployeeID);
+             ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectName", timeEntry.ProjectID);
              return View(timeEntry);
          }
 
@@ -96,7 +96,7 @@ namespace ProjectTimeTracking.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TimeEntryID,ProjectID,EmployeeID,DateWorked,TimeWorked")] TimeEntry timeEntry)
+        public async Task<IActionResult> Edit(int id, [Bind("ProjectID,EmployeeID,DateWorked,TimeWorked")] TimeEntry timeEntry)
         {
             if (id != timeEntry.TimeEntryID)
             {
