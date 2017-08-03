@@ -49,8 +49,8 @@ namespace ProjectTimeTracking.Controllers
         // GET: TimeEntries/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeFirstName", "EmployeeFirstName");
-            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectName", "ProjectName");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "EmployeeID", "EmployeeFirstName");
+            ViewData["ProjectID"] = new SelectList(_context.Projects, "ProjectID", "ProjectName");
             return View();
         }
 
