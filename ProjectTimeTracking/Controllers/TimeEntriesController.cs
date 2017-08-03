@@ -59,7 +59,7 @@ namespace ProjectTimeTracking.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DateWorked,TimeWorked")] TimeEntry timeEntry)
+        public async Task<IActionResult> Create([Bind("TimeEntryID, Project, Employee, EmployeeID,ProjectID,DateWorked,TimeWorked")] TimeEntry timeEntry)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace ProjectTimeTracking.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TimeEntryID,ProjectID,EmployeeID,DateWorked,TimeWorked")] TimeEntry timeEntry)
+        public async Task<IActionResult> Edit(int id, [Bind(include: "TimeEntryID ,EmployeeID, ProjectID, DateWorked,TimeWorked")] TimeEntry timeEntry)
         {
             if (id != timeEntry.TimeEntryID)
             {

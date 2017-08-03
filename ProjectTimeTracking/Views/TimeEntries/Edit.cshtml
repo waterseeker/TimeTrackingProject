@@ -11,18 +11,18 @@
         <h4>TimeEntry</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="TimeEntryID" />
+        <input type="hidden" asp-for="TimeEntryID" />    
         <div class="form-group">
             <label asp-for="Project" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <select asp-for="Project" class="form-control" asp-items="ViewBag.ProjectID"></select>
+                <select asp-for="ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>
                 <span asp-validation-for="Project" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Employee" class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <select asp-for="Employee" class="form-control" asp-items="ViewBag.EmployeeID"></select>
+                <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID"></select>
                 <span asp-validation-for="Employee" class="text-danger"></span>
             </div>
         </div>
