@@ -22,7 +22,7 @@ namespace ProjectTimeTracking.Controllers
         // GET: TimeEntries
         public async Task<IActionResult> Index()
         {
-            var projectTimeTrackingContext = _context.TimeEntries.Include(t => t.Employee).AsNoTracking().Include(t => t.Project).AsNoTracking();
+            var projectTimeTrackingContext = _context.TimeEntries.Include(t => t.Employee).Include(t => t.Project);
             return View(await projectTimeTrackingContext.ToListAsync());
         }
 

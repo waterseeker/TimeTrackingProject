@@ -22,9 +22,9 @@ namespace ProjectTimeTracking.Models
         [Description("Time Worked")]
         [Display(Name = "Time Worked")]
         public double TimeWorked { get; set; }
-        [Required(ErrorMessage ="What project was this for?")]
+        //[Required(ErrorMessage ="What project was this for?")]
         public Project Project{ get; set; }
-        [Required(ErrorMessage ="Who completed this work?")]
+        //[Required(ErrorMessage ="Who completed this work?")]
         public Employee Employee { get; set; }
     }
 }
